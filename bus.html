@@ -1,0 +1,1005 @@
+<html class="">
+  <meta charset="utf-8">
+  <title>爆炸响应演示系统</title>
+<head>
+
+  <style>
+  * { margin: 0; padding: 0;}
+
+  body, html {width:100%; height:100%;}
+
+  canvas {display:block; position: absolute;z-index: 100 !important;}
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :before, :after {
+    content: '';
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+  }
+
+
+  body {
+    position: relative;
+    direction: rtl;
+    min-width: 1000px;
+    background: #ddd;
+    text-align: center;
+  }
+
+  .wrapper, .wrapper * {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .wrapper {
+    top: 50%;
+    left: 50%;
+    width: 1000px;
+    height: 200px;
+    margin: -100px 0 0 -500px;
+  }
+
+  .inner {
+    z-index: 1;
+  }
+
+  .glass {
+    z-index: 2;
+  }
+
+  .outer {
+    z-index: 3;
+  }
+
+  .furniture {
+    top: 110px;
+    left: 35px;
+    width: 916px;
+    height: 48px;
+    background: #999;
+  }
+
+  .furniture:after {
+    top: -70px;
+    left: 4px;
+    width: 6px;
+    height: 70px;
+    background: #999;
+    box-shadow: 150px 0 0 #999, 362px 0 0 #999, 434px 0 0 #999, 500px 0 0 #999, 752px 0 0 #999, 840px 0 0 #999, 906px 0 0 #999;
+  }
+
+  .furniture:before {
+    top: -68px;
+    left: 0;
+    width: 916px;
+    height: 6px;
+    background: #999;
+  }
+
+  .seat {
+    top: -10px;
+    left: 20px;
+    width: 6px;
+    height: 20px;
+    border-radius: 10px;
+    background: #999;
+    transform: rotate(-10deg);
+  }
+
+  .seat:nth-child(1) {
+    left: 10px;
+  }
+
+  .seat:nth-child(2) {
+    left: 35px;
+  }
+
+  .seat:nth-child(3) {
+    left: 60px;
+  }
+
+  .seat:nth-child(4) {
+    left: 85px;
+  }
+
+  .seat:nth-child(5) {
+    left: 110px;
+  }
+
+  .seat:nth-child(6) {
+    left: 135px;
+  }
+
+  .seat:nth-child(7) {
+    left: 160px;
+  }
+
+  .seat:nth-child(8) {
+    left: 185px;
+  }
+
+  .seat:nth-child(9) {
+    left: 210px;
+  }
+
+  .seat:nth-child(10) {
+    left: 235px;
+  }
+
+  .seat:nth-child(11) {
+    left: 260px;
+  }
+
+  .seat:nth-child(12) {
+    left: 285px;
+  }
+
+  .seat:nth-child(13) {
+    left: 310px;
+  }
+
+  .seat:nth-child(14) {
+    left: 335px;
+  }
+
+  .seat:nth-child(15) {
+    left: 360px;
+  }
+
+  .seat:nth-child(16) {
+    left: 385px;
+  }
+
+  .seat:nth-child(17) {
+    left: 410px;
+  }
+
+  .seat:nth-child(18) {
+    left: 435px;
+  }
+
+  .seat:nth-child(19) {
+    left: 460px;
+  }
+
+  .seat:nth-child(20) {
+    left: 485px;
+  }
+
+  .seat:nth-child(21) {
+    left: 510px;
+  }
+
+  .seat:nth-child(22) {
+    left: 535px;
+  }
+
+  .seat:nth-child(23) {
+    left: 560px;
+  }
+
+  .seat:nth-child(24) {
+    left: 585px;
+  }
+
+  .seat:nth-child(25) {
+    left: 610px;
+  }
+
+  .seat:nth-child(26) {
+    left: 635px;
+  }
+
+  .seat:nth-child(27) {
+    left: 660px;
+  }
+
+  .seat:nth-child(28) {
+    left: 685px;
+  }
+
+  .seat:nth-child(29) {
+    left: 710px;
+  }
+
+  .seat:nth-child(30) {
+    left: 735px;
+  }
+
+  .seat:nth-child(31) {
+    left: 760px;
+  }
+
+  .seat:nth-child(32) {
+    left: 785px;
+  }
+
+  .seat:nth-child(33) {
+    left: 810px;
+  }
+
+  .seat:nth-child(34) {
+    left: 835px;
+  }
+
+  .seat:nth-child(35) {
+    left: 860px;
+  }
+
+  .seat:nth-child(36) {
+    left: 885px;
+  }
+
+  .driver {
+    top: 130px;
+    left: 950px;
+    width: 45px;
+    height: 25px;
+    background: #999;
+  }
+
+  .driver:before {
+    top: -25px;
+    left: 2px;
+    width: 6px;
+    height: 30px;
+    border-radius: 10px;
+    background: #999;
+    transform: rotate(-10deg);
+  }
+
+  .driver:after {
+    top: -10px;
+    right: 0;
+    width: 5px;
+    height: 10px;
+    border-radius: 5px 0 0 0;
+    background: #999;
+  }
+
+  .glass {
+    top: 38px;
+    left: 35px;
+    width: 960px;
+    height: 120px;
+    background: #59d;
+    opacity: .4;
+    overflow: hidden;
+  }
+
+  .glass:before {
+    top: 40px;
+    left: 0;
+    width: 1000px;
+    height: 100px;
+    background: #2266aa;
+  }
+
+  .tunnel {
+    top: 30px;
+    left: 414px;
+    width: 52px;
+    height: 155px;
+    background: #222;
+  }
+
+  .tunnel:before {
+    top: 0;
+    left: 25px;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: -6px 0 0 rgba(255, 255, 255, 0.2), -12px 0 0 rgba(255, 255, 255, 0.2), -18px 0 0 rgba(255, 255, 255, 0.2), -24px 0 0 rgba(255, 255, 255, 0.2), 6px 0 0 rgba(255, 255, 255, 0.2), 12px 0 0 rgba(255, 255, 255, 0.2), 18px 0 0 rgba(255, 255, 255, 0.2), 24px 0 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .tunnel:after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .door {
+    top: 52px;
+    width: 58px;
+    height: 105px;
+    border: 2px solid #222;
+    box-shadow: 0 0 0 8px #eee, 0 -4px 0 8px #eee, 0 18px 0 8px #eee, 0 0 0 10px #222, 0 -4px 0 10px #222, 0 18px 0 10px #222;
+  }
+
+  .door.d1 {
+    left: 78px;
+  }
+
+  .door.d2 {
+    left: 265px;
+  }
+
+  .door.d3 {
+    left: 640px;
+  }
+
+  .door.d4 {
+    left: 910px;
+  }
+
+  .door:before {
+    top: -15px;
+    left: 25px;
+    width: 4px;
+    height: 145px;
+    background: #222;
+  }
+
+  .door:after {
+    top: 75px;
+    left: 17px;
+    width: 20px;
+    height: 10px;
+    border-left: 3px solid #222;
+    border-right: 3px solid #222;
+    border-radius: 2px;
+  }
+
+  .ground {
+    top: 185px;
+    left: 10px;
+    width: 985px;
+    height: 2px;
+    background: #222;
+  }
+
+  .wheel {
+    top: 130px;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #eee;
+    box-shadow: inset 0 4px 0 -2px #090909, inset 4px 0 0 -2px #090909, inset -4px 0 0 -2px #090909, inset 0 0 0 7px #222, inset 0 0 0 14px #2f2f2f, inset 0 0 0 16px #bbbbbb, inset 0 0 0 20px #6f6f6f, inset 0 0 0 25px #eee, inset 0 0 0 28px #6f6f6f;
+  }
+
+  .wheel.w1 {
+    left: 168px;
+  }
+
+  .wheel.w2 {
+    left: 495px;
+  }
+
+  .wheel.w3 {
+    left: 825px;
+  }
+
+  .wheel:before {
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 2px dashed #222;
+    border-radius: 50%;
+  }
+
+  .wheel:after {
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    border: 1px dotted #222;
+    border-radius: 50%;
+  }
+
+  .window {
+    top: 38px;
+    height: 82px;
+    border: 4px solid #222;
+  }
+
+  .window:before {
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #222;
+  }
+
+  .window.w1 {
+    left: 35px;
+    width: 35px;
+  }
+
+  .window.w2 {
+    left: 144px;
+    width: 113px;
+  }
+
+  .window.w3 {
+    left: 331px;
+    width: 80px;
+  }
+
+  .window.w4 {
+    left: 469px;
+    width: 163px;
+  }
+
+  .window.w5 {
+    left: 706px;
+    width: 196px;
+  }
+
+  .window.w6 {
+    left: 976px;
+    width: 19px;
+    height: 110px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    border-right: 0;
+  }
+
+  .window.w6:before {
+    display: none;
+  }
+
+  .window.w2:after,
+  .window.w4:after,
+  .window.w5:after {
+    top: 0;
+    left: 50%;
+    width: 6px;
+    height: 100%;
+    background: #222;
+  }
+
+  .body {
+    background: #911;
+  }
+
+  .body.b1 {
+    top: 26px;
+    left: 10px;
+    width: 404px;
+    height: 12px;
+    border-radius: 15px 8px 0 0;
+  }
+
+  .body.b2 {
+    top: 26px;
+    left: 466px;
+    width: 529px;
+    height: 12px;
+    border-radius: 8px 15px 0 0;
+  }
+
+  .body.b3 {
+    top: 38px;
+    left: 10px;
+    width: 25px;
+    height: 82px;
+  }
+
+  .body.b4 {
+    top: 38px;
+    left: 410px;
+    width: 4px;
+    height: 148px;
+  }
+
+  .body.b5 {
+    top: 38px;
+    left: 465px;
+    width: 4px;
+    height: 148px;
+  }
+
+  .body.b6 {
+    top: 120px;
+    left: 10px;
+    width: 60px;
+    height: 65px;
+  }
+
+  .body.b7 {
+    top: 120px;
+    left: 145px;
+    width: 110px;
+    height: 65px;
+  }
+
+  .body.b8 {
+    top: 120px;
+    left: 330px;
+    width: 300px;
+    height: 65px;
+  }
+
+  .body.b9 {
+    top: 120px;
+    left: 700px;
+    width: 200px;
+    height: 65px;
+  }
+
+  .body.b10 {
+    top: 145px;
+    left: 975px;
+    width: 20px;
+    height: 40px;
+    background: #820e0e;
+  }
+
+  .body.b6,
+  .body.b7,
+  .body.b8,
+  .body.b9 {
+    background: linear-gradient(to bottom, #911 0%, #911 25px, #820e0e 25px, #820e0e 100%);
+  }
+
+  .body.b6:before,
+  .body.b7:before,
+  .body.b8:before,
+  .body.b9:before {
+    top: 12px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #540909;
+  }
+
+  .body.b8:after {
+    top: 12px;
+    left: 260px;
+    width: 2px;
+    height: 55px;
+    background: #540909;
+  }
+
+  .body.b9:after {
+    top: 12px;
+    left: 70px;
+    width: 2px;
+    height: 55px;
+    background: #540909;
+  }
+
+  .roof {
+    top: -16px;
+    height: 16px;
+    border-bottom: 1px solid #222;
+    border-radius: 20px 20px 0 0;
+    background: #911;
+  }
+
+  .roof.r1 {
+    left: 250px;
+    width: 140px;
+  }
+
+  .roof.r2 {
+    left: 10px;
+    width: 510px;
+  }
+
+  .roof:after {
+    top: 4px;
+    left: 30px;
+    width: 30px;
+    height: 1px;
+    background: #222;
+    box-shadow: 0 3px 0 #222, 0 6px 0 #222, 50px 0 0 #222, 50px 3px 0 #222, 50px 6px 0 #222;
+    opacity: .5;
+  }
+
+  .air {
+    height: 6px;
+    border-bottom: 1px solid #222;
+    border-radius: 20px 20px 0 0;
+    background: #911;
+  }
+
+  .air.a1 {
+    top: -6px;
+    left: 70px;
+    width: 40px;
+  }
+
+  .air.a2 {
+    top: -22px;
+    left: 340px;
+    width: 50px;
+  }
+
+  .knob {
+    top: 175px;
+    width: 3px;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 2px 0 #000;
+    opacity: .2;
+  }
+
+  .knob.k1 {
+    left: 55px;
+  }
+
+  .knob.k2 {
+    left: 245px;
+  }
+
+  .knob.k3 {
+    left: 345px;
+  }
+
+  .knob.k4 {
+    left: 400px;
+  }
+
+  .knob.k5 {
+    left: 580px;
+  }
+
+  .knob.k6 {
+    left: 620px;
+  }
+
+  .knob.k7 {
+    left: 715px;
+  }
+
+  .knob.k8 {
+    left: 780px;
+  }
+
+  .knob.k9 {
+    left: 985px;
+  }
+
+
+
+/*for input*/
+.container {
+position: relative;
+top: auto;
+left: auto;
+width: auto;
+}
+
+input {
+  padding:1em;
+  border: 1px solid #ccc;
+-webkit-box-shadow: inset 0 1px 0 #eee,#fff 0 1px 0;
+box-shadow: inset 0 1px 0 #eee,#fff 0 1px 0;
+  border-radius:5px;
+  width:200px;
+}
+
+/* we put label on top of the input*/
+label {
+position: absolute;
+top: 0;
+right: 1px;
+bottom: 1px;
+left: .5em;
+z-index: 1;
+height: 1em;
+font-size: 13px;
+line-height: 3.5em;
+color: #999;
+white-space: nowrap;
+cursor: text;
+transition:all .1s ease;
+
+}
+
+input:focus ~ label, input:valid ~label {
+  font-size:9px;
+  font-weight:bold;
+  left:5px;
+  top:-5px;
+}
+input:valid ~label {
+  color:green;
+}
+input:focus:invalid ~label{
+  color:red;
+}
+
+input:required ~label::before {
+  content:"*";
+  color:red;
+}
+
+input:required:valid ~label::before {
+  color:green;
+}
+
+/*button*/
+
+.animate
+{
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+}
+
+.action-button
+{
+	position: relative;
+	padding: 10px 40px;
+  margin: 0px 10px 10px 0px;
+	border-radius: 10px;
+	font-family: 'Pacifico', cursive;
+	font-size: 25px;
+	color: #FFF;
+	text-decoration: none;
+}
+
+.blue
+{
+	background-color: #3498DB;
+	border-bottom: 5px solid #2980B9;
+	text-shadow: 0px -2px #2980B9;
+}
+
+.red
+{
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+}
+
+.green
+{
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
+
+.yellow
+{
+	background-color: #F2CF66;
+	border-bottom: 5px solid #D1B358;
+	text-shadow: 0px -2px #D1B358;
+}
+
+.action-button:active
+{
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <input type="text" id="texto" required />
+    <label for="texto">参数一</label>
+  </div>
+
+  <div class="container">
+    <input type="email" id="correo" required />
+    <label for="correo">参数二</label>
+  </div>
+
+    <div class="container">
+    <input type="url" id="url" required />
+    <label for="url">参数三</label>
+  </div>
+  <button  onclick="goFire()" class="action-button shadow animate red">爆炸</button>
+
+<canvas height="650" width="400" id="game"></canvas>
+<div class="wrapper">
+  <div class="inner">
+    <div class="furniture">
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+      <div class="seat"></div>
+    </div>
+    <div class="driver"></div>
+  </div>
+  <div class="glass"></div>
+  <div class="outer">
+    <div class="body b1">
+      <div class="roof r1"></div>
+      <div class="air a1"></div>
+    </div>
+    <div class="body b2">
+      <div class="roof r2"></div>
+      <div class="air a2"></div>
+    </div>
+    <div class="body b3"></div>
+    <div class="body b4"></div>
+    <div class="body b5"></div>
+    <div class="body b6"></div>
+    <div class="body b7"></div>
+    <div class="body b8"></div>
+    <div class="body b9"></div>
+    <div class="body b10"></div>
+    <div class="knob k1"></div>
+    <div class="knob k2"></div>
+    <div class="knob k3"></div>
+    <div class="knob k4"></div>
+    <div class="knob k5"></div>
+    <div class="knob k6"></div>
+    <div class="knob k7"></div>
+    <div class="knob k8"></div>
+    <div class="knob k9"></div>
+    <div class="tunnel"></div>
+    <div class="door d1"></div>
+    <div class="door d2"></div>
+    <div class="door d3"></div>
+    <div class="door d4"></div>
+    <div class="ground"></div>
+    <div class="wheel w1"></div>
+    <div class="wheel w2"></div>
+    <div class="wheel w3"></div>
+    <div class="window w1"></div>
+    <div class="window w2"></div>
+    <div class="window w3"></div>
+    <div class="window w4"></div>
+    <div class="window w5"></div>
+    <div class="window w6"></div>
+  </div>
+</div>
+
+<script>
+var canvas;
+var stage;
+var width = 650;
+var height = 400;
+var particles = [];
+var max = 60;
+var mouseX=0;
+var mouseY=0;
+
+var speed=3;
+var size=10;
+
+//The class we will use to store particles. It includes x and y
+//coordinates, horizontal and vertical speed, and how long it's
+//been "alive" for.
+function Particle(x, y, xs, ys) {
+  this.x=x;
+  this.y=y;
+  this.xs=xs;
+  this.ys=ys;
+  this.life=0;
+}
+
+function resizeCanvas() {
+  setTimeout(function() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    mouseX=canvas.width/2;
+    mouseY=canvas.height*0.25;
+   stage.globalCompositeOperation="lighter"
+  }, 0);
+}
+
+function init() {
+
+  //Reference to the HTML element
+  canvas=document.getElementById("game");
+
+  resizeCanvas();
+
+  //See if the browser supports canvas
+  if (canvas.getContext) {
+
+    //Get the canvas context to draw onto
+    stage = canvas.getContext("2d");
+
+    //Makes the colors add onto each other, producing
+    //that nice white in the middle of the fire
+    stage.globalCompositeOperation="xor";
+
+    //Update the mouse position
+  //  canvas.addEventListener("mousemove", getMousePos);
+
+    window.addEventListener("resize", function() {
+      resizeCanvas();
+      stage.globalCompositeOperation="lighter";
+      mouseX=canvas.width/2;
+      mouseY=canvas.height*0.8;
+    });
+
+    //Update the particles every frame
+    var timer=setInterval(update,40);
+
+  } else {
+    alert("Canvas not supported.");
+  }
+}
+
+
+function update() {
+
+  //Adds ten new particles every frame
+  for (var i=0; i<10; i++) {
+
+    //Adds a particle at the mouse position, with random horizontal and vertical speeds
+    var p = new Particle(mouseX, mouseY, (Math.random()*2*speed-speed)/2, 0-Math.random()*2*speed);
+    particles.push(p);
+  }
+
+  //Clear the stage so we can draw the new frame
+  stage.clearRect(0, 0, width, height);
+
+  //Cycle through all the particles to draw them
+  for (i=0; i<particles.length; i++) {
+
+    //Set the file colour to an RGBA value where it starts off red-orange, but progressively gets more grey and transparent the longer the particle has been alive for
+    stage.fillStyle = "rgba("+(260-(particles[i].life*2))+","+((particles[i].life*2)+50)+","+(particles[i].life*2)+","+(((max-particles[i].life)/max)*0.4)+")";
+
+    stage.beginPath();
+    //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
+    stage.arc(particles[i].x,particles[i].y,(max-particles[i].life)/max*(size/2)+(size/2),0,2*Math.PI);
+    stage.fill();
+
+    //Move the particle based on its horizontal and vertical speeds
+    particles[i].x+=particles[i].xs;
+    particles[i].y+=particles[i].ys;
+
+    particles[i].life++;
+    //If the particle has lived longer than we are allowing, remove it from the array.
+    if (particles[i].life >= max) {
+      particles.splice(i, 1);
+      i--;
+    }
+  }
+}
+
+function goFire(){
+  init();
+}
+
+//# sourceURL=pen.js
+</script>
+</body></html>
